@@ -78,9 +78,9 @@ def inspect_result(page):
         page.wait_for_timeout(1400)
 
     return page.evaluate(r"""() => {
-      const normalize = s => (s || '').replace(/\\s+/g, ' ').trim().toLowerCase();
+      const normalize = s => (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
       const text = document.body.innerText || '';
-      if (/\\b0\\s+transports?\\s+found\\b/i.test(text))
+      if (/\b0\s+transports?\s+found\b/i.test(text))
         return [false, false, '0 transports found'];
       const tables = [...document.querySelectorAll('table')];
       for (const table of tables) {
@@ -105,7 +105,7 @@ def inspect_result(page):
             if (radius < Math.min(r.width, r.height) * 0.3 &&
                 el.tagName.toLowerCase() !== 'circle') return false;
             return [st.backgroundColor, st.fill].some(c => {
-              const m = /rgba?\\((\\d+)[, ]+([\\d]+)[, ]+([\\d]+)/i.exec(c || '');
+              const m = /rgba?\((\d+)[, ]+([\d]+)[, ]+([\d]+)/i.exec(c || '');
               if (!m) return false;
               const [red, gr, blue] = m.slice(1).map(Number);
               return gr > 75 && gr > red * 1.18 &&
@@ -140,7 +140,7 @@ def main():
         (row, str(sheet.cell(row, 1).value).strip())
         for row in range(1, sheet.max_row + 1)
         if sheet.cell(row, 1).value and re.fullmatch(
-            r"WOSO[\\w-]+", str(sheet.cell(row, 1).value).strip(), re.I
+            r"WOSO[\w-]+", str(sheet.cell(row, 1).value).strip(), re.I
         )
     ]
     if not tasks:
