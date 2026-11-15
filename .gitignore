@@ -1,0 +1,10 @@
+# Never commit order data or local secrets
+*.xlsx
+*.xls
+*.xlsm
+*.log
+weliver_error_*.png
+__pycache__/
+.venv/
+.env
+*.zip
